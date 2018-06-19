@@ -1,0 +1,153 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Site Statistics</h3>
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <p class="text-center">
+                                            <strong></strong>
+                                        </p>
+                                        <div class="chart-responsive">
+                                            <!-- Sales Chart Canvas -->
+                                            <canvas id="salesChart" height="180"></canvas>
+                                        </div><!-- /.chart-responsive -->
+                                    </div><!-- /.col -->
+                                </div><!-- /.row -->
+                            </div><!-- ./box-body -->
+                            <div class="box-footer">
+                                <div class="row">
+                                    <div class="col-sm-3 col-xs-6">
+                                        <div class="description-block border-right">
+                                            <span class="description-percentage text-green"><i
+                                                    class="fa fa-caret-up"></i></span>
+                                            <h5 class="description-header">{{ data.total_tests }}</h5>
+                                            <span class="description-text">TOTAL NUMBER OF TESTS CONDUCTED</span>
+                                        </div><!-- /.description-block -->
+                                    </div><!-- /.col -->
+                                </div><!-- /.row -->
+                            </div><!-- /.box-footer -->
+                        </div><!-- /.box -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-3 col-xs-6">
+                        <div class="small-box bg-yellow">
+                            <div class="inner">
+                                <h3>{{ data.testsuc }}</h3>
+                                <p>Tests Passed</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-xs-6">
+                        <div class="small-box bg-red">
+                            <div class="inner">
+                                <h3>{{ data.testfail }}</h3>
+                                <p>Tests Failed</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-xs-6">
+                        <div class="small-box bg-green">
+                            <div class="inner">
+                                <h3>{{ data.mailsent }}</h3>
+                                <p>Mails Sent</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Last Test Details for The Site{{ total_tests }}
+                        </h1>
+                        <div>
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Sitename</th>
+                                    <th>Tests Passed</th>
+                                    <th>Tests Failed</th>
+                                    <th>Mails Sent</th>
+                                    <th>Last Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="active">
+                                    <td>{{ data.sitename }}</td>
+                                    <td>{{ data.testsuc }}</td>
+                                    <td>{{ data.testfail }}</td>
+                                    <td>{{ data.mailsent }}</td>
+                                    <td>{{ data.datetime }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script>
+        $(window).load(function () {
+            var salesChartCanvas = $("#salesChart").get(0).getContext("2d");
+            var salesChart = new Chart(salesChartCanvas);
+            // cal_data = {'January':1,'February':2,'March':3,'April':4,'May':5,'June':6,'July':7,'August':8,'September':9,'October':10,'November':11,'December':12}
+            var salesChartData = {
+                labels: [{{data.datetime.month}}, 0],
+                datasets: [
+                    {
+                        label: "Test Fail",
+                        fillColor: "rgb(210, 214, 222)",
+                        strokeColor: "rgb(210, 214, 222)",
+                        pointColor: "red",
+                        pointStrokeColor: "#c1c7d1",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgb(220,220,220)",
+                        data: [{{ data.testfail|safe}}, 0]
+                    },
+                    {
+                        label: "Test Pass",
+                        fillColor: "rgb(210, 214, 255)",
+                        strokeColor: "rgb(210, 214, 255)",
+                        pointColor: "Green",
+                        pointStrokeColor: "red",
+                        pointHighlightFill: "red",
+                        pointHighlightStroke: "red",
+                        data: [{{ data.testsuc|safe}}, 0]
+                    },
+                ],
+            };
+            var salesChartOptions = {
+                showScale: true,
+                scaleShowGridLines: false,
+                scaleGridLineColor: "rgba(0,0,0,.05)",
+                scaleGridLineWidth: 1,
+                scaleShowHorizontalLines: true,
+                scaleShowVerticalLines: true,
+                bezierCurve: true,
+                bezierCurveTension: 0.3,
+                pointDot: false,
+                pointDotRadius: 4,
+                pointDotStrokeWidth: 1,
+                pointHitDetectionRadius: 20,
+                datasetStroke: true,
+                datasetStrokeWidth: 2,
+                datasetFill: true,
+                maintainAspectRatio: false,
+                responsive: true
+            };
+            salesChart.Line(salesChartData, salesChartOptions);
+        });
+    </script>
+{% endblock %}
+
+

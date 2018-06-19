@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+{% block content %}
+
+    <div id="page-wrapper">
+
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Edit Your Settings
+                </h1>
+
+            </div>
+        </div>
+        <div class="row">
+
+            <!-- /.col-sm-4 -->
+            <div class="col-sm-4">
+
+                <div class="panel panel-info">
+                    <div class="">
+                        <div class="panel-body">
+                            <form action="" class="panel-body wrapper-lg" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <h4>Edit The Following Information</h4><br>
+                                    {% if checked %}<h6 style="color:red;">No Change</h6>{% endif %}
+                                    {% for field in form %}
+                                        <label class="control-label ">{{ field.label }} </label>
+                                        <div class="controls">
+                                        {{ field }}
+                                        {% if field.errors %}
+                                            <div class="" style="margin-left:-40px;">
+                                                {{ field.errors }}
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </div><br>
+                                    <input type="submit" class="btn btn-primary"/>
+                                </div>
+                            </form>
+                            <p id="pass-cust"> To Change your Password Please click <a href="/password-change">Here</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

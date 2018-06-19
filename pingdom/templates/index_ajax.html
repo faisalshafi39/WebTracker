@@ -1,0 +1,111 @@
+{% load bootstrap_pagination %}
+<div class="ajax-content">
+    <div class="row">
+        <div class="col-md-4">
+            <h1 class="page-header">
+                Sites Enrolled Overview
+            </h1>
+        </div>
+        <div class="col-md-4" style="float:right;margin-top:40px;">
+
+            <input type="text" class="form-control input-s" id="search" placeholder="Search site by sitename"
+                   onkeypress="return find();"/>
+
+        </div>
+    </div>
+    {% if site_user %}
+        <div style="text-align:center;margin-top:-50px;">
+            {% bootstrap_paginate pageno range=10 show_prev_next="true" show_first_last="true" %}
+        </div>
+        <div class="row">
+
+        {% for site in pageno %}
+            <!-- /.col-sm-4 -->
+            <div class="col-sm-4">
+                <div class="panel panel-info">
+                    <ul class="nav navbar-right" style="padding-right:10px;">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Customize site <b
+                                    class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/create_edit_site/?site_id={{ site.id }}">Edit site</a>
+
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#more2" data-toggle="modal" class="more"
+                                       onclick="return checknow('{{ site.id }}');">Delete site</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ site.sitename }} </h3>
+
+                    </div>
+
+                    <ol class="breadcrumb">
+                        <li class="active">
+                            <i class="fa fa-desktop"></i> Last Test Time : {{ site.date }}
+                        </li>
+                    </ol>
+                    <ol class="breadcrumb">
+                        <li>
+                            <i class="fa fa-fw fa-dashboard"></i> Set Auto Test Mode&nbsp
+                            <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+                                <button type="button"
+                                        class="btn btn-default btn-xs {% if site.auto_test_mode %}active{% endif %}"
+                                        id="True" onclick="return site_update('{{ site.id }}',id)"
+                                >
+                                    On
+                                </button>
+                                <button type="button"
+                                        class="btn btn-default btn-xs {% if not site.auto_test_mode or site.auto_test_mode == null %}active{% endif %}"
+                                        id="False" onclick="return site_update('{{ site.id }}',id)"
+                                >
+                                    Off
+                                </button>
+                            </div>
+                        </li>
+                    </ol>
+
+                    <div class="panel-body">URL Name:
+                        <div class="panel panel-info">   {{ site.url }} </div>
+                        Site Health :
+                        {% if site.testfail > site.testsuc %}
+                            <span class="label label-danger">Not Good</span>{% elif site.testfail == 0 and site.testsuc == 0 %}
+                            <span class="label label-warning">New Site</span>{% else %}
+                            <span class="label label-success">Good</span>{% endif %}
+                        <br><br> <a href="/run_test/{{ site.id }}" type="button"
+                                    class="btn btn-xs btn-success">Run
+                            Test Manually</a>&nbsp&nbsp&nbsp<a href="/detail/{{ site.id }}" type="button"
+                                                               class="btn btn-xs btn-primary">View Last
+                            Details</a></div>
+                </div>
+            </div>
+            <div class="modal fade" id="more2" tabindex="-1" role="dialog" aria-labelledby="callnow">
+                <div class="modal-dialog" role="document"
+                     style="width:350px;text-align:center;margin: 300px auto;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title">Are you sure?</h2>
+                        </div>
+                        <div class="modal-body">
+                            <strong>You will be going to loose data.</strong>
+                            <p></p>
+                            <p>
+                                <a id="enter" href="#" class="btn  btn-primary">Yes</a>
+                                <a class="btn  btn-danger" data-dismiss="modal" aria-label="Close">No</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+    {% else %}
+        <h4 style="text-align:center">No Results Found</h4>
+    {% endif %}
+    <!-- /#wrapper --></div>
+</div>

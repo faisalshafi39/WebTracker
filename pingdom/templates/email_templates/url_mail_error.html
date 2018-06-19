@@ -1,0 +1,32 @@
+{% extends "email_templates/base_email_template.html" %}
+{% block email_text %}
+    <table style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; width: 100%; margin: 0; padding: 40px;">
+        <tr style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; margin: 0; padding: 0;">
+
+            <td style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; margin: 0; padding: 0;">
+                <p style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 17px; line-height: 1.6; font-weight: 200; margin: 0 0 10px; padding: 0;">
+                    Dear {{ site_user }},</p>
+                <p style="font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif; font-size: 17px; line-height: 1.6; color: #000; font-weight: 200; margin: 20px 0 10px; padding: 0;">
+                    The Error Details on your site testing as as under:
+                <h3>Subject : {{ Subject }}</h3>
+                <p>Error : {{ error }}</p>
+                URL : <a href="{{ url }}">{{ url }}</a>
+                </p>
+
+                <p style="font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif; font-size: 17px; line-height: 1.6; color: #000; font-weight: 200; margin: 20px 0 10px; padding: 0;">
+                    To respond to the message, please check our details below</p>
+                <p style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.6; font-weight: normal; margin: 0 0 10px; padding: 0;">
+                    Sincerely,</p>
+                <p style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1; font-weight: normal; margin: 0 0 10px; padding: 0;">
+                    Office of Web Tracker Systems</p>
+                <p style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1; font-weight: normal; margin: 0 0 10px; padding: 0;">
+                    Email: institute@webtracker.edu</p>
+                <p style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1; font-weight: normal; margin: 0 0 10px; padding: 0;">
+                    Phone: 215-746-8334</p>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
+
+
+

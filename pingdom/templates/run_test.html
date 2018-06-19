@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        <small>Test Statistics Overview</small>
+                    </h1>
+
+                </div>
+            </div>
+            <div class="alert alert-info alert-dismissable" style="margin-left:15px;display: None;">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <i class="fa fa-info-circle"></i> <strong>Your Message </strong> has been
+                successfully submitted
+            </div>
+            <!-- /.row -->
+            <div class="jumbotron">
+                {% if error %}<h1>You Have Failed This Test</h1><p>The Details are as Under:
+                    <ul>
+                        <li> {{ error }} Status</li>
+                    </ul></p>
+                    <p><a id="mail_sent" href="#" name="{{ site.id }}" class="btn btn-primary btn-lg" role="button">Send
+                        Email &raquo;</a>
+                    </p>
+                {% else %}<h1>You Have Passed This Test</h1><p>The Details are as Under:
+                    <ul>
+                        <li> 200 Status OK</li>
+                    </ul></p>{% endif %}
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- /#wrapper -->
+{% endblock %}
